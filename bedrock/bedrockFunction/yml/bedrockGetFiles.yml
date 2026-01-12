@@ -1,0 +1,15 @@
+bedrockGetFiles:
+  handler: bedrock/bedrockFunction/js/bedrockGetFiles.bedrockGetFiles
+  timeout: 30
+  environment:
+    stage: ${self:provider.stage}
+  events:
+    - http:
+        path: ${self:app}-bedrock/files
+        method: GET
+        integration: lambda
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: apiGatewayAuthorizer
+        cors: true

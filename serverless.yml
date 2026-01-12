@@ -1,7 +1,7 @@
 service: bocpiabackend
 app: bocppocia
 org: miton
-frameworkVersion: "3.38.0"
+frameworkVersion: "3.39.0"
 
 provider:
   name: aws
@@ -14,6 +14,24 @@ provider:
   # region: us-west-2
   lambdaHashingVersion: 20201221
   versionFunctions: false
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - bedrock:InvokeAgent
+            - bedrock:Retrieve
+            - bedrock:RetrieveAndGenerate
+          Resource: "*"
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+            - s3:GetObject
+            - s3:DeleteObject
+            - s3:ListBucket
+          Resource:
+            - arn:aws:s3:::gs1apiedi-${self:provider.stage}-files/*
+            - arn:aws:s3:::gs1apiedi-${self:provider.stage}-files
 
 plugins:
   - serverless-plugin-split-stacks
@@ -36,6 +54,7 @@ resources:
     cognitoAuthRole: ${file(resources/iam/cognitoAuthRole.yml):cognitoAuthRole}
     cognitoUnauthRole: ${file(resources/iam/cognitoUnauthRole.yml):cognitoUnauthRole}
     executeLambda: ${file(resources/iam/executeLambda.yml):executeLambda}
+    # bedrockAgentRole: ${file(resources/iam/bedrockAgentRole.yml):bedrockAgentRole}
     # cognito & authorizer
     cognitoUserPool: ${file(resources/cognito/cognitoUserPool.yml):cognitoUserPool}
     cognitoIdentityPool: ${file(resources/cognito/cognitoIdentityPool.yml):cognitoIdentityPool}

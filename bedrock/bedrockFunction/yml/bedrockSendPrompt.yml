@@ -1,0 +1,15 @@
+bedrockSendPrompt:
+  handler: bedrock/bedrockFunction/js/bedrockSendPrompt.bedrockSendPrompt
+  timeout: 60
+  environment:
+    stage: ${self:provider.stage}
+  events:
+    - http:
+        path: ${self:app}-bedrock/prompt
+        method: POST
+        integration: lambda
+        # authorizer:
+        #   type: COGNITO_USER_POOLS
+        #   authorizerId:
+        #     Ref: apiGatewayAuthorizer
+        cors: true

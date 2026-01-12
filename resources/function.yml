@@ -39,6 +39,11 @@ userACLGetListGLN: ${file(user/userFunction/yml/userACLGetListGLN.yml):userACLGe
 userACLGetMyPermission: ${file(user/userFunction/yml/userACLGetMyPermission.yml):userACLGetMyPermission}
 userACLInsert: ${file(user/userFunction/yml/userACLInsert.yml):userACLInsert}
 extractorConnection: ${file(extractor/extractorFunction/yml/extractorConnection.yml):extractorConnection}
+# bedrock
+bedrockUploadFile: ${file(bedrock/bedrockFunction/yml/bedrockUploadFile.yml):bedrockUploadFile}
+bedrockSendPrompt: ${file(bedrock/bedrockFunction/yml/bedrockSendPrompt.yml):bedrockSendPrompt}
+bedrockGetHistory: ${file(bedrock/bedrockFunction/yml/bedrockGetHistory.yml):bedrockGetHistory}
+bedrockGetFiles: ${file(bedrock/bedrockFunction/yml/bedrockGetFiles.yml):bedrockGetFiles}
 # # order
 # orderInsert: ${file(order/orderFunction/yml/orderInsert.yml):orderInsert}
 # orderGetAllByCompany: ${file(order/orderFunction/yml/orderGetAllByCompany.yml):orderGetAllByCompany}

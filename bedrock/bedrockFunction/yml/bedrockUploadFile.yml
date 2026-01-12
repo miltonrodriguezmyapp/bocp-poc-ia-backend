@@ -1,0 +1,16 @@
+bedrockUploadFile:
+  handler: bedrock/bedrockFunction/js/bedrockUploadFile.bedrockUploadFile
+  timeout: 30
+  environment:
+    stage: ${self:provider.stage}
+    BEDROCK_FILES_BUCKET: gs1apiedi-${self:provider.stage}-files
+  events:
+    - http:
+        path: ${self:app}-bedrock/upload
+        method: POST
+        integration: lambda
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: apiGatewayAuthorizer
+        cors: true

@@ -3,6 +3,7 @@
   "description": "",
   "version": "0.1.0",
   "dependencies": {
+    "@aws-sdk/client-bedrock-agent-runtime": "^3.700.0",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
     "ajv-i18n": "^4.2.0",

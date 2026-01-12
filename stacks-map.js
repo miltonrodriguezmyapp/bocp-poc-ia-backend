@@ -24,6 +24,11 @@ ServerlessPluginSplitStacks.resolveMigration = function (resource, logicalId, se
         logicalId.startsWith("locations")) {
         return { destination: 'Locations' };
     }
+    // Temporalmente deshabilitado - Bedrock irá al stack principal
+    // if (logicalId.startsWith("Bedrock") ||
+    //     logicalId.startsWith("bedrock")) {
+    //     return { destination: 'Bedrock' };
+    // }
 
         //  //Deploy para DEV
          if (resource.Type == 'AWS::ApiGateway::Method' ||

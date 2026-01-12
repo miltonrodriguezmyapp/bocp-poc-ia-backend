@@ -1,0 +1,44 @@
+bedrockAgentRole:
+  Type: AWS::IAM::Role
+  Properties:
+    RoleName: ${self:app}-${self:provider.stage}-bedrock-agent-role
+    AssumeRolePolicyDocument:
+      Version: "2012-10-17"
+      Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+              - lambda.amazonaws.com
+          Action: sts:AssumeRole
+    ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+    Policies:
+      - PolicyName: ${self:app}-${self:provider.stage}-bedrock-policy
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            # Permisos para Bedrock Agent Runtime
+            - Effect: Allow
+              Action:
+                - bedrock:InvokeAgent
+                - bedrock:Retrieve
+                - bedrock:RetrieveAndGenerate
+              Resource: "*"
+            # Permisos para S3 (subir y leer archivos)
+            - Effect: Allow
+              Action:
+                - s3:PutObject
+                - s3:GetObject
+                - s3:DeleteObject
+                - s3:ListBucket
+              Resource:
+                - arn:aws:s3:::gs1apiedi-${self:provider.stage}-files/*
+                - arn:aws:s3:::gs1apiedi-${self:provider.stage}-files
+            # Permisos para CloudWatch Logs
+            - Effect: Allow
+              Action:
+                - logs:CreateLogGroup
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource: "*"

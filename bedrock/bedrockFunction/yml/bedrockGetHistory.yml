@@ -1,0 +1,15 @@
+bedrockGetHistory:
+  handler: bedrock/bedrockFunction/js/bedrockGetHistory.bedrockGetHistory
+  timeout: 30
+  environment:
+    stage: ${self:provider.stage}
+  events:
+    - http:
+        path: ${self:app}-bedrock/history
+        method: GET
+        integration: lambda
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: apiGatewayAuthorizer
+        cors: true
